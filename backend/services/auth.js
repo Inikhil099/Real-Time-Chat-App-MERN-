@@ -8,7 +8,7 @@ function setUser(user) {
       email: user.email,
       id: user._id,
     },
-    process.env.JWT_SECRET_KEY,
+    process.env.JWT_SECRET,
     {
         expiresIn:maxage
     }
@@ -16,7 +16,7 @@ function setUser(user) {
 }
 
 function getUser(token) {
-  return jwt.verify(token, process.env.JWT_SECRET_KEY);
+  return jwt.verify(token, process.env.JWT_SECRET);
 }
 
 module.exports = { setUser, getUser };

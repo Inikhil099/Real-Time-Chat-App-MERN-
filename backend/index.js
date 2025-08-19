@@ -18,12 +18,12 @@ const server = http.createServer(app)
 
 
 
-connectDb("mongodb://127.0.0.1:27017/chatApp").then(()=>{
+connectDb(process.env.DB_URI).then(()=>{
     console.log("db is connected")
 })
 
 app.use(cors({
-    origin:[process.env.ORIGIN],
+    origin:process.env.ORIGIN,
     methods:["GET","POST","PUT","PATCH","DELETE"],
     credentials:true,
 }))
