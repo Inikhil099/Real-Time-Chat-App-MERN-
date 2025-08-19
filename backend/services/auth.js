@@ -8,7 +8,7 @@ function setUser(user) {
       email: user.email,
       id: user._id,
     },
-    secretkey,
+    process.env.JWT_SECRET_KEY,
     {
         expiresIn:maxage
     }

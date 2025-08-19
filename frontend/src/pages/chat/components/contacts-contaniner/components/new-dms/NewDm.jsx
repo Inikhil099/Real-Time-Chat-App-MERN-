@@ -26,6 +26,7 @@ import {
   setSelectedChatType,
   setSelectedData,
 } from "@/redux/slices/chatSlice";
+import { backend_url } from "@/assets/constants";
 
 function NewDm() {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ function NewDm() {
     try {
       if (searchTerm.length > 0) {
         const res = await axios.post(
-          "http://localhost:3000/contacts/search",
+          `${backend_url}/contacts/search`,
           { searchTerm },
           { withCredentials: true }
         );
@@ -105,7 +106,7 @@ function NewDm() {
                         <Avatar className="h-12 w-12 rounded-full border-[1px] overflow-hidden">
                           {e.Image ? (
                             <AvatarImage
-                              src={`http://localhost:3000/${e.Image}`}
+                              src={`${backend_url}/${e.Image}`}
                               alt="profile imgage"
                               className="object-cover bg-black w-full h-full rounded-full"
                             />

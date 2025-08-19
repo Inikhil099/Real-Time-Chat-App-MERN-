@@ -11,6 +11,7 @@ import { toast } from 'sonner'
 import axios from 'axios'
 import { setUserInfo } from '@/redux/slices/authSlice'
 import { useEffect } from 'react'
+import { backend_url } from '@/assets/constants'
  
 const Profile = () => {
   const navigate = useNavigate()
@@ -30,7 +31,7 @@ const Profile = () => {
       setselectedcolor(user.color)
     }
     if(user.Image){
-      setimage(`http://localhost:3000/${user.Image}`)
+      setimage(`${backend_url}/${user.Image}`)
     }
   }, [user])
   
@@ -49,7 +50,7 @@ const Profile = () => {
   const saveChanges = async()=>{
     if(validateProfile()){
       try {
-        const res = await axios.post("http://localhost:3000/user/update-profile",{firstName,lastName,color:selectedcolor},{withCredentials:true})
+        const res = await axios.post(`${backend_url}/user/update-profile`,{firstName,lastName,color:selectedcolor},{withCredentials:true})
         if (res.status === 200 && res.data.userdata) {
           dispatch(setUserInfo({...user,firstName:res.data.userdata.firstName,lastName:res.data.userdata.lastName,color: selectedcolor,profileSetup:res.data.userdata.profileSetup}))
           toast.success("Profile Updated")
@@ -80,7 +81,7 @@ const Profile = () => {
     if(file){
       const formdata = new FormData()
       formdata.append("profile-image",file)
-      const res = await axios.post("http://localhost:3000/user/add-profile-image",formdata,{
+      const res = await axios.post(`${backend_url}/user/add-profile-image`,formdata,{
         withCredentials:true
       })
       if(res.status == 200 && res.data.img){
@@ -98,7 +99,7 @@ const Profile = () => {
 
   const handleDeleteImage = async(e)=>{
     try {
-      const res = await axios.delete("http://localhost:3000/user/remove-profile-image",{withCredentials:true})
+      const res = await axios.delete(`${backend_url}/user/remove-profile-image`,{withCredentials:true})
       if(res.status == 200){
         setUserInfo({...user,image:null})
         toast.success("Image Removed Successfully")

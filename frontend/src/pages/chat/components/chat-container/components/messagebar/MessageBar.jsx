@@ -1,3 +1,4 @@
+import { backend_url } from "@/assets/constants";
 import { Input } from "@/components/ui/input";
 import { useSocket } from "@/context/socketContext";
 import {
@@ -68,7 +69,7 @@ function MessageBar() {
         formData.append("file", file);
         dispatch(setisUploading(true));
         const res = await axios.post(
-          "http://localhost:3000/api/messages/upload-file",
+          `${backend_url}/api/messages/upload-file`,
           formData,
           {
             withCredentials: true,

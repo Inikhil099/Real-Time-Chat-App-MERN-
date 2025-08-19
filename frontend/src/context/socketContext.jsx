@@ -1,3 +1,4 @@
+import { backend_url } from "@/assets/constants";
 import { addChannelInChangeList, addContactsInDMContacts, addMessage } from "@/redux/slices/chatSlice";
 import { createContext, useContext, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,36 +18,10 @@ export const SocketProvider = ({ children }) => {
     (state) => state.chat
   );
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     socket.current = io("http://localhost:3000", {
-  //       withCredentials: true,
-  //       query: { userId: userInfo.id },
-  //     });
-  //     socket.current.on("connect", () => {});
-
-  // const handleReceiveMessage = (message) => {
-  //   if (
-  //     (selectedChatType !== undefined &&
-  //       selectedChatData?._id === message.sender?._id) ||
-  //     selectedChatData?._id === message.receiver?._id
-  //   ) {
-  //     dispatch(addMessage(message));
-  //   }
-  // };
-
-  //     socket.current.on("receiveMessage", (message) => {
-  //       handleReceiveMessage(message);
-  //       console.log("handle done", message);
-  //     });
-
-  //     return () => socket.current.disconnect();
-  //   }
-  // }, [userInfo, selectedChatData, selectedChatType]);
 
   useEffect(() => {
     if (userInfo) {
-      socket.current = io("http://localhost:3000", {
+      socket.current = io(`${backend_url}`, {
         withCredentials: true,
         query: { userId: userInfo.id },
       });

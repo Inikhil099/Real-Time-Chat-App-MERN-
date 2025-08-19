@@ -5,7 +5,7 @@ const Channel = require("../models/channelModel");
 function setUpSocket(server) {
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: process.env.ORIGIN,
       methods: ["GET", "POST"],
       credentials: true,
     },

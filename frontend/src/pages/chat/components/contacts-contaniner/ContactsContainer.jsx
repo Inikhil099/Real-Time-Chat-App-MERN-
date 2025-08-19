@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setChannels, setdirectMessagesContacts } from "@/redux/slices/chatSlice";
 import ContactList from "@/components/ui/ContactList";
 import CreateChannel from "./components/create-channel/CreateChannel";
+import { backend_url } from "@/assets/constants";
 
 function ContactsContainer() {
   const dispatch = useDispatch()
@@ -13,14 +14,14 @@ function ContactsContainer() {
   const {directMessagesContacts} = useSelector((state)=> state.chat)
   const getContacts = async () => {
     const res = await axios.get(
-      "http://localhost:3000/contacts/get-contacts-for-dm",
+      `${backend_url}/contacts/get-contacts-for-dm`,
       { withCredentials: true }
     );
     dispatch(setdirectMessagesContacts(res.data.contacts))
   };
 
   const getchannels = async()=>{
-    const res = await axios.get("http://localhost:3000/api/channel/get-user-channels",{withCredentials:true})
+    const res = await axios.get(`${backend_url}/api/channel/get-user-channels`,{withCredentials:true})
     dispatch(setChannels(res.data.channels))
   }
 

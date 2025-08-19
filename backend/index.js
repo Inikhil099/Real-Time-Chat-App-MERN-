@@ -44,6 +44,10 @@ app.use("/api/channel",channelRouter)
  
 setUpSocket(server)
 
+app.get("/",(req,res)=>{
+    return res.send("hello from the chat backend")
+})
+
 server.listen(PORT,()=>{
     console.log("app running","http://localhost:"+PORT)
 })

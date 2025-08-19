@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
 import MultipleSelector from "@/components/ui/MultipleSelector";
 import { addChannel, setChannels } from "@/redux/slices/chatSlice";
+import { backend_url } from "@/assets/constants";
 
 function CreateChannel() {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ function CreateChannel() {
     try {
       if (channelName.length > 0 && selectedContacts.length > 0) {
         const res = await axios.post(
-          "http://localhost:3000/api/channel/create-channel",
+          `${backend_url}/api/channel/create-channel`,
           {
             name: channelName,
             members: selectedContacts.map((e) => e.value),
@@ -54,7 +55,7 @@ function CreateChannel() {
   useEffect(() => {
     const getData = async () => {
       const res = await axios.get(
-        "http://localhost:3000/contacts/get-all-contacts",
+        `${backend_url}/contacts/get-all-contacts`,
         { withCredentials: true }
       );
       setallContacts(res.data.contacts);

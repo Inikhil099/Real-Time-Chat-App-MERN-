@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import axios from 'axios'
 import { setUserInfo } from './redux/slices/authSlice'
+import { backend_url } from './assets/constants'
 
 const PrivateRoute = ({children})=>{
   const user = useSelector((state)=> state.Auth.uservalue)
@@ -29,7 +30,7 @@ function App() {
   const [loading, setloading] = useState(true)
   const getUserData = async()=>{
       try {
-        const res = await axios.get("http://localhost:3000/user/userinfo",{
+        const res = await axios.get(`${backend_url}/user/userinfo`,{
           withCredentials:true
         })
         if(res.status == 200 && res.data.id){

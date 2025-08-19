@@ -1,3 +1,4 @@
+import { backend_url } from "@/assets/constants";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { getColor } from "@/lib/utils";
 import { closeChat } from "@/redux/slices/chatSlice";
@@ -20,7 +21,7 @@ function ChatHeader() {
               <Avatar className="h-12 w-12 rounded-full border-[1px] overflow-hidden">
                 {selectedChatData.image ? (
                   <AvatarImage
-                    src={`http://localhost:3000/${selectedChatData.image}`}
+                    src={`${backend_url}/${selectedChatData.image}`}
                     alt="profile imgage"
                     className="object-cover bg-black w-full h-full"
                   />

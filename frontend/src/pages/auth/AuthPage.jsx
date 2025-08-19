@@ -9,6 +9,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserInfo } from '@/redux/slices/authSlice'
+import { backend_url } from '@/assets/constants'
 
 
 
@@ -56,7 +57,7 @@ const AuthPage = () => {
   const handleLogin = async(e)=>{
     try {
       if(validateLogin()){
-      const response = await axios.post("http://localhost:3000/user/login",{email,password},{
+      const response = await axios.post(`${backend_url}/user/login`,{email,password},{
         withCredentials:true,
       })
       if(response.data.userdata._id){
@@ -82,7 +83,7 @@ const AuthPage = () => {
   const handleSignup = async()=>{
     try {
       if(validateSignup()){
-      const response = await axios.post("http://localhost:3000/user/signup",{email,password},{
+      const response = await axios.post(`${backend_url}/user/signup`,{email,password},{
         withCredentials:true,
       })
       if(response.status === 201){

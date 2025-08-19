@@ -13,6 +13,7 @@ import { IoMdArrowRoundDown } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getColor } from "@/lib/utils";
+import { backend_url } from "@/assets/constants";
 
 function MessageContainer() {
   const scrollRef = useRef();
@@ -46,7 +47,7 @@ function MessageContainer() {
   const downloadFile = async (url) => {
     dispatch(setisDownloading(true));
     dispatch(setfileDownloadProgress(0));
-    const res = await axios.get(`http://localhost:3000/${url}`, {
+    const res = await axios.get(`${backend_url}/${url}`, {
       responseType: "blob",
       onDownloadProgress: (data) =>
         dispatch(
@@ -109,7 +110,7 @@ function MessageContainer() {
                     setshowImage(true);
                     setimageUrl(message.fileUrl);
                   }}
-                  src={`http://localhost:3000/${message.fileUrl}`}
+                  src={`${backend_url}/${message.fileUrl}`}
                   height={300}
                   width={300}
                 />
@@ -174,7 +175,7 @@ function MessageContainer() {
                     setshowImage(true);
                     setimageUrl(message.fileUrl);
                   }}
-                  src={`http://localhost:3000/${message.fileUrl}`}
+                  src={`${backend_url}/${message.fileUrl}`}
                   height={300}
                   width={300}
                 />
@@ -203,7 +204,7 @@ function MessageContainer() {
             <Avatar className="h-8 w-8 rounded-full border-[1px] overflow-hidden">
               {message.sender.Image && (
                 <AvatarImage
-                  src={`http://localhost:3000/${message.sender.Image}`}
+                  src={`${backend_url}/${message.sender.Image}`}
                   alt="profile imgage"
                   className="object-cover bg-black w-full h-full"
                 />
@@ -246,7 +247,7 @@ function MessageContainer() {
     const getAllMessages = async () => {
       try {
         const res = await axios.post(
-          "http://localhost:3000/api/messages/get-messages",
+          `${backend_url}/api/messages/get-messages`,
           { id: selectedChatData._id },
           { withCredentials: true }
         );
@@ -259,7 +260,7 @@ function MessageContainer() {
     const getChannelMessages = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/channel/get-channel-messages/${selectedChatData._id}`,
+          `${backend_url}/api/channel/get-channel-messages/${selectedChatData._id}`,
           { withCredentials: true }
         );
         if (res.data.allChannelMessages) {
@@ -287,7 +288,7 @@ function MessageContainer() {
           <div className="fixed z-[1000] top-0 left-0 h-[100vh] w-[100vw] flex items-center justify-center backdrop-blur-lg flex-col">
             <div className="">
               <img
-                src={`http://localhost:3000/${imageUrl}`}
+                src={`${backend_url}/${imageUrl}`}
                 className="h-[80vh] w-full bg-cover"
                 alt=""
               />

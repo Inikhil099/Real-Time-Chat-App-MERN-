@@ -1,3 +1,4 @@
+import { backend_url } from "@/assets/constants";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { getColor } from "@/lib/utils";
@@ -16,7 +17,7 @@ function ProfileInfo() {
   const userInfo = useSelector((state) => state.Auth.uservalue);
   const userLogout = async()=>{
     try {
-      const res = await axios.post("http://localhost:3000/user/logout",{},{withCredentials:true})
+      const res = await axios.post(`${backend_url}/user/logout`,{},{withCredentials:true})
       if(res.status == 200){
         dispatch(setUserInfo(null))
         navigate("/auth")
@@ -33,7 +34,7 @@ function ProfileInfo() {
           <Avatar className="h-12 w-12 rounded-full border-[1px] overflow-hidden">
             {userInfo.image ? (
               <AvatarImage
-                src={`http://localhost:3000/${userInfo.image}`}
+                src={`${backend_url}/${userInfo.image}`}
                 alt="profile imgage"
                 className="object-cover bg-black w-full h-full"
               />
